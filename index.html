@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Car Simulink Model Diagram</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .diagram-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .power-section {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .control-section {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+        }
+
+        .load-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #f39c12;
+        }
+
+        .monitor-section {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #9b59b6;
+        }
+
+        .block {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            border: 2px solid #2c3e50;
+            border-radius: 8px;
+            background: white;
+            font-weight: bold;
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .subsystem {
+            background: #f8f9fa !important;
+            border: 3px dashed #6c757d;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .arrow {
+            font-size: 24px;
+            color: #e74c3c;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .voltage-rail {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 15px;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .connection-line {
+            height: 3px;
+            background: #e74c3c;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .connection-line::after {
+            content: '▶';
+            position: absolute;
+            right: -10px;
+            top: -8px;
+            color: #e74c3c;
+            font-size: 16px;
+        }
+
+        .parameter-box {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .parameter-box h4 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+
+        .step-number {
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .instruction {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .flow-diagram {
+                flex-direction: column;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">🚗 Electric Car Simulink Model Block Diagram</h1>
+
+        <!-- Main Power Flow -->
+        <div class="power-section">
+            <div class="section-title">🔋 POWER SUPPLY SECTION</div>
+            <div class="flow-diagram">
+                <div class="block">
+                    <strong>Constant</strong><br>
+                    Value: 400<br>
+                    <small>(400V Battery)</small>
+                </div>
+                <span class="arrow">➤</span>
+                <div class="block">
+                    <strong>Gain</strong><br>
+                    Gain: 0.03<br>
+                    <small>(DC-DC Converter)</small>
+                </div>
+                <span class="arrow">➤</span>
+                <div class="voltage-rail">12V Rail</div>
+            </div>
+
+            <div class="parameter-box">
+                <h4>Power Supply Parameters:</h4>
+                • Battery: 400V DC source<br>
+                • DC-DC Converter: Gain = 12/400 = 0.03<br>
+                • Output: 12V for auxiliary systems
+            </div>
+        </div>
+
+        <!-- Control Systems -->
+        <div class="control-section">
+            <div class="section-title">🎛️ CONTROL SUBSYSTEMS</div>
+
+            <div class="subsystem">
+                <h4><span class="step-number">1</span>Power Window Control (PID)</h4>
+                <div class="flow-diagram">
+                    <div class="block">
+                        <strong>Step</strong><br>
+                        Time: 1<br>
+                        Final: 1
+                    </div>
+                    <span class="arrow">➤</span>
+                    <div class="block">
+                        <strong>Sum</strong><br>
+                        Inputs: +-<br>
+                        <small>(Error)</small>
+                    </div>
+                    <span class="arrow">➤</span>
+                    <div class="block">
+                        <strong>PID Controller</strong><br>
+                        Kp=1, Ki=0.1, Kd=0.05
+                    </div>
+                    <span class="arrow">➤</span>
+                    <div class="block">
+                        <strong>Integrator</strong><br>
+                        <small>(Motor Position)</small>
+                    </div>
+                </div>
+                <div class="connection-line"></div>
+                <div style="text-align: center;">
+                    <div class="block">
+                        <strong>Gain</strong><br>
+                        Gain: 1/R_window<br>
+                        <small>(Current Calc)</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsystem">
+                <h4><span class="step-number">2</span>HVAC PWM Control</h4>
+                <div class="flow-diagram">
+                    <div class="block">
+                        <strong>Pulse Generator</strong><br>
+                        Freq: 1000 Hz<br>
+                        Duty: 50%
+                    </div>
+                    <span class="arrow">➤</span>
+                    <div class="block">
+                        <strong>Product</strong><br>
+                        <small>(PWM × Duty)</small>
+                    </div>
+                    <span class="arrow">➤</span>
+                    <div class="block">
+                        <strong>Product</strong><br>
+                        <small>(× 400V)</small>
+                    </div>
+                    <span class="arrow">➤</span>
+                    <div class="block">
+                        <strong>Gain</strong><br>
+                        Gain: 1/320<br>
+                        <small>(Current)</small>
+                    </div>
+                </div>
+                <div style="margin-top: 10px;">
+                    <div class="block">
+                        <strong>Step</strong><br>
+                        Time: 2<br>
+                        0.5→0.8<br>
+                        <small>(Duty Control)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load Systems -->
+        <div class="load-section">
+            <div class="section-title">💡 ELECTRICAL LOADS</div>
+
+            <div class="subsystem">
+                <h4><span class="step-number">3</span>Lighting System</h4>
+                <div class="flow-diagram">
+                    <div class="voltage-rail">12V Input</div>
+                    <span class="arrow">➤</span>
+                    <div class="block">
+                        <strong>Gain</strong><br>
+                        Gain: 2/2.62<br>
+                        <small>(Headlights)</small>
+                    </div>
+                </div>
+                <div class="flow-diagram">
+                    <div class="voltage-rail">12V Input</div>
+                    <span class="arrow">➤</span>
+                    <div class="block">
+                        <strong>Gain</strong><br>
+                        Gain: 2/5.76<br>
+                        <small>(Brake Lights)</small>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <div class="block">
+                        <strong>Add</strong><br>
+                        Inputs: ++<br>
+                        <small>(Total Current)</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsystem">
+                <h4><span class="step-number">4</span>Mirror System</h4>
+                <div class="flow-diagram">
+                    <div class="voltage-rail">12V Input</div>
+                    <span class="arrow">➤</span>
+                    <div class="block">
+                        <strong>Gain</strong><br>
+                        Gain: 2/7.2<br>
+                        <small>(Both Mirrors)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monitoring -->
+        <div class="monitor-section">
+            <div class="section-title">📊 MONITORING & DISPLAY</div>
+
+            <div class="flow-diagram">
+                <div class="block">
+                    <strong>Scope</strong><br>
+                    3 inputs<br>
+                    <small>(12V Currents)</small>
+                </div>
+                <div class="block">
+                    <strong>Scope</strong><br>
+                    2 inputs<br>
+                    <small>(Window Control)</small>
+                </div>
+                <div class="block">
+                    <strong>Scope</strong><br>
+                    1 input<br>
+                    <small>(HVAC Current)</small>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 15px;">
+                <div class="block">
+                    <strong>Add</strong><br>
+                    Inputs: +++<br>
+                    <small>(Total 12V Current)</small>
+                </div>
+                <span class="arrow">➤</span>
+                <div class="block">
+                    <strong>Display</strong><br>
+                    <small>(Current Value)</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step-by-Step Instructions -->
+        <div class="instruction">
+            <h3>🛠️ Step-by-Step Building Instructions:</h3>
+
+            <p><span class="step-number">1</span><strong>Create Main Model:</strong> New → Blank Model</p>
+
+            <p><span class="step-number">2</span><strong>Add Power Supply:</strong>
+                <br>• Drag "Constant" block → Set value to 400
+                <br>• Drag "Gain" block → Set gain to 0.03
+                <br>• Connect: Constant → Gain
+            </p>
+
+            <p><span class="step-number">3</span><strong>Create Lighting Subsystem:</strong>
+                <br>• Drag "Subsystem" block
+                <br>• Double-click to open
+                <br>• Add: In1 → Gain(2/2.62) → Out1 (headlights)
+                <br>• Add: In1 → Gain(2/5.76) → Add → Out1 (brake lights)
+                <br>• Connect both gains to Add block
+            </p>
+
+            <p><span class="step-number">4</span><strong>Create Window Control:</strong>
+                <br>• New Subsystem
+                <br>• Add: Step → Sum(+-) → PID → Integrator
+                <br>• Add feedback: Integrator output → Sum negative input
+                <br>• Add current calc: PID output → Gain(1/2.88) → Out2
+                <br>• Position output: Integrator → Out1
+            </p>
+
+            <p><span class="step-number">5</span><strong>Create HVAC System:</strong>
+                <br>• New Subsystem
+                <br>• Add: Pulse Generator + Step (duty control)
+                <br>• Connect: Pulse × Step → Product1
+                <br>• Connect: Product1 × 400V → Product2
+                <br>• Connect: Product2 → Gain(1/320) → Out1
+            </p>
+
+            <p><span class="step-number">6</span><strong>Add Monitoring:</strong>
+                <br>• Drag 3 Scope blocks
+                <br>• Drag Add block (3 inputs) for total current
+                <br>• Drag Display block
+                <br>• Connect all subsystem outputs to scopes
+            </p>
+
+            <p><span class="step-number">7</span><strong>Connect Everything:</strong>
+                <br>• DC-DC output → Lighting, Window, Mirror inputs
+                <br>• 400V Battery → HVAC input
+                <br>• All current outputs → Scopes and total current sum
+            </p>
+        </div>
+
+        <div class="parameter-box">
+            <h4>📋 Key Parameters to Set:</h4>
+            • <strong>PID Controller:</strong> Kp=1, Ki=0.1, Kd=0.05<br>
+            • <strong>Resistances:</strong> Headlight=2.62Ω, Brake=5.76Ω, Window=2.88Ω, Mirror=7.2Ω, HVAC=320Ω<br>
+            • <strong>PWM:</strong> Frequency=1000Hz, Initial duty=50%<br>
+            • <strong>Solver:</strong> ode23t, Max step=1e-4, Stop time=10s<br>
+            • <strong>Window step:</strong> Time=1s, Final value=1<br>
+            • <strong>HVAC duty step:</strong> Time=2s, Before=0.5, After=0.8
+        </div>
+    </div>
+</body>
+
+</html>
