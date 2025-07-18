@@ -11,24 +11,28 @@ class LNode {
 
 class LinkedList {
     head: LNode | null;
+    length: number
 
     constructor() {
         this.head = null;
+        this.length = 0;
     }
 
-    add(value: number) {
+    append(value: number) {
+        // Create a new node with the value
         const newNode = new LNode(value);
-
-        if (this.head == null) {
+        // If the list is empty, set head and tail to new node
+        if (this.head === null) {
             this.head = newNode;
-        } else {
-            let currentNode = this.head
-            while (currentNode.next !== null) {
-                currentNode = currentNode.next;
+        } else {  // Else, set tail.next to new node and update tail to new node
+            let current = this.head
+            // Traverse to the end of the list
+            while (current.next !== null) {
+                current = current.next
             }
-            currentNode.next = newNode;
+            current.next = newNode
+            this.length++
         }
-
     }
 
 
@@ -44,7 +48,45 @@ class LinkedList {
 
     // Add value to the beginning of the list
     prepend(value: number) {
+        // Create a new node with the value
+        const newNode = new LNode(value);
+        // If list is empty, set head and tail to new node
+        if (this.head === null) {
+            this.head = newNode
+        } else {        // Else, set newNode.next to head, then update head to newNode
+            newNode.next = this.head
+            this.head = newNode
+            this.length++
+        }
     }
+
+
+    insert(index: number, value: number) {
+        // If index is 0, use prepend
+        if (index === 0) {
+            return this.prepend(value)
+        }
+        // If index is length, use append
+        if (index === this.length || index > this.length) {
+            return this.append(value)
+        }
+        const newNode = new LNode(value)
+        //  - Loop to the node before the index
+        let current = this.head;
+        if (current) {
+
+            for (let i = 0; i < index - 1; i++) {
+                current = current?.next as LNode | null; 
+            }
+            newNode.next = current?.next as LNode | null
+            current!.next = newNode as LNode | null
+            this.length++
+            return newNode
+        }
+
+    }
+
+
 
     // Get value at a specific index
     get(index: number) {
@@ -118,9 +160,11 @@ class LinkedList {
 }
 
 const list = new LinkedList();
-list.add(20)
-list.add(50)
-list.add(30)
-list.add(90)
+list.append(20)
+list.append(30)
+list.append(90)
+list.insert(0, 100)
+
+// list.prepend(10)
 // console.log(list); // Output: 10
 list.print()

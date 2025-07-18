@@ -39,7 +39,14 @@ class SinglyLinkedList {
 
 
     transverse() {
-        let curentNode = this.head; // Start from the head of the list
-        while(!curentNode)
+        let currentNode = this.head; // Start from the head of the list
+        while(currentNode?.next != null){
+            currentNode = currentNode.next
+
+            if(currentNode.next === null) {
+                return currentNode.value;
+            }
+        } 
+        
     }
 }
