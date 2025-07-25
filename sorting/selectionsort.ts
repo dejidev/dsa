@@ -22,4 +22,3 @@ function selectionSort(list: number[]) {
 }
 
 console.log(selectionSort([3, 4, 2, 1]));
-
