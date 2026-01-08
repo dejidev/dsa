@@ -1,6 +1,7 @@
 
 
 function bubbleSort(list: number[]) {
+    
     let len = list.length
     let swap = false
 
